@@ -12,6 +12,17 @@ class Api::V1::PatientsController < ApplicationController
     end
   end
 
+  def show
+    outcome = Patients::Show.run(id: params[:id])
+
+    if outcome.success?
+      patient = outcome.result
+      render json: patient, status: :ok
+    else
+      render json: { errors: outcome.errors }, status: :unprocessable_entity
+    end
+  end
+
   def create
     outcome = Patients::Create.run(patient_params)
 
