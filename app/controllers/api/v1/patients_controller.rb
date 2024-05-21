@@ -44,6 +44,21 @@ class Api::V1::PatientsController < ApplicationController
     end
   end
 
+  def search 
+    outcome = Patients::Search.run(search_params)
+
+    if outcome.success?
+      patients = outcome.result
+      render json: patients, status: :ok
+    else
+      render json: { errors: outcome.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def search_params
+    params.permit(:page, :per_page, :query)
+  end
+
   def patient_params
     params.require(:patient).permit(:first_name, :last_name, :dob, :email, :gender, :notes, :medications)
   end 
