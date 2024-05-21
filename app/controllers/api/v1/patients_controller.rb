@@ -28,6 +28,16 @@ class Api::V1::PatientsController < ApplicationController
     end
   end
 
+  def destroy
+    outcome = Patients::Remove.run(id: params[:id])
+
+    if outcome.success?
+      head :ok
+    else
+      render json: { errors: outcome.errors }, status: :unprocessable_entity
+    end
+  end
+
   def patient_params
     params.require(:patient).permit(:first_name, :last_name, :dob, :email, :gender, :notes, :medications)
   end 
