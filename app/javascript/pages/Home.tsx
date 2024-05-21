@@ -1,8 +1,12 @@
 import React from "react";
+import { Nav } from "../components/Nav";
+import { PageLayout } from "../components/PageLayout";
 
 export const Home = () => (
-  <>
-    <div className="text-3xl font-bold underline">Patient Tracker App</div>{" "}
-    <button className="btn">Test</button>
-  </>
+  <PageLayout>
+    <div className="flex justify-between w-full">
+      <h1 className="text-4xl">Patients</h1>
+      <button className="btn btn-primary">Add Patient</button>
+    </div>
+  </PageLayout>
 );

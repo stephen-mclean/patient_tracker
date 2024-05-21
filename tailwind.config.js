@@ -4,22 +4,14 @@ module.exports = {
     themes: [
       {
         mytheme: {
-          primary: "#6494AA",
-
-          secondary: "#4E6766",
-
-          accent: "#CD5D67",
-
+          primary: "#5ABCB9",
+          secondary: "#1B4965",
+          accent: "#82204A",
           neutral: "#7D8CA3",
-
-          "base-100": "#FFFBFC",
-
+          "base-100": "#F5EFED",
           info: "#54457F",
-
           success: "#44AF69",
-
           warning: "#E28413",
-
           error: "#F4463F",
         },
       },
@@ -33,9 +25,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#6494AA",
-        secondary: "#4E6766",
-        accent: "#CD5D67",
+        primary: "#5ABCB9",
+        secondary: "#1B4965",
+        accent: "#82204A",
         neutral: "#7D8CA3",
         info: "#54457F",
         success: "#44AF69",
