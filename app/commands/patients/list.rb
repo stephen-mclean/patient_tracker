@@ -6,9 +6,10 @@ class Patients::List < Mutations::Command
 
   def execute
     patients = Patient.all
+    total = patients.count
     limit = inputs[:per_page]
     offset = inputs[:page] * inputs[:per_page]
     patients = patients.limit(limit).offset(offset) if inputs[:page] && inputs[:per_page]
-    patients
+    { patients:, total:, page: inputs[:page] }
   end
 end
