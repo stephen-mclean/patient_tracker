@@ -3,7 +3,7 @@ class Api::V1::PatientsController < ApplicationController
 
   def index
     outcome = Patients::List.run(pagination_params)
-    
+
     if outcome.success?
       patients = outcome.result
       render json: patients, status: :ok
@@ -20,7 +20,7 @@ class Api::V1::PatientsController < ApplicationController
       render json: patient, status: :created
     else
       render json: { errors: outcome.errors }, status: :unprocessable_entity
-    end    
+    end
   end
 
   def update
@@ -44,7 +44,7 @@ class Api::V1::PatientsController < ApplicationController
     end
   end
 
-  def search 
+  def search
     outcome = Patients::Search.run(search_params)
 
     if outcome.success?
@@ -61,10 +61,9 @@ class Api::V1::PatientsController < ApplicationController
 
   def patient_params
     params.require(:patient).permit(:first_name, :last_name, :dob, :email, :gender, :notes, :medications)
-  end 
+  end
 
   def pagination_params
     params.permit(:page, :per_page)
   end
-
 end
