@@ -14,9 +14,18 @@ class Api::V1::PatientsController < ApplicationController
       render json: patient, status: :created
     else
       render json: { errors: outcome.errors }, status: :unprocessable_entity
-    end
+    end    
+  end
 
-    
+  def update
+    outcome = Patients::Update.run(patient_params.merge(id: params[:id]))
+
+    if outcome.success?
+      patient = outcome.result
+      render json: patient, status: :ok
+    else
+      render json: { errors: outcome.errors }, status: :unprocessable_entity
+    end
   end
 
   def patient_params
