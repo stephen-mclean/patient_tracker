@@ -1,9 +1,10 @@
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { Patient, PatientInputs } from "../types/patients";
 import { useCreateOrModifyPatient } from "../hooks/useCreatePatient";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
+import DatePicker from "react-datepicker";
 
 type Props = {
   onSuccess?: () => void;
@@ -18,6 +19,7 @@ export const PatientForm = ({ onSuccess, patient }: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm<PatientInputs>({ defaultValues: patient });
 
   const onSubmit: SubmitHandler<PatientInputs> = async (data) => {
@@ -88,12 +90,20 @@ export const PatientForm = ({ onSuccess, patient }: Props) => {
           <span className="label-text">Date of Birth</span>
         </div>
 
-        <input
-          className={classNames(
-            "input input-sm input-bordered w-full max-w-xs",
-            { "input-error": errors.dob }
+        <Controller
+          name="dob"
+          rules={{ required: true }}
+          render={({ field: { value, onChange } }) => (
+            <DatePicker
+              selected={value}
+              onChange={onChange}
+              className={classNames(
+                "input input-sm input-bordered w-full max-w-xs",
+                { "input-error": errors.dob }
+              )}
+            />
           )}
-          {...register("dob", { required: true })}
+          control={control}
         />
       </label>
 
