@@ -9,8 +9,8 @@ class Patients::Update < Mutations::Command
     date :dob
     string :email, matches: URI::MailTo::EMAIL_REGEXP
     string :gender, in: %w[male female]
-    string :notes
-    string :medications
+    string :notes, empty: true
+    string :medications, empty: true
   end
 
   def validate

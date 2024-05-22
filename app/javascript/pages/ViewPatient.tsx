@@ -1,12 +1,13 @@
 import React from "react";
 import { PageLayout } from "../components/PageLayout";
 import { PatientsTable } from "../components/PatientsTable";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePatient } from "../hooks/usePatient";
 import { PatientActions } from "../components/PatientActions";
 import { PatientForm } from "../components/PatientForm";
 
 export const ViewPatient = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const patientId = Number(id);
   const patient = usePatient(patientId);
@@ -30,7 +31,9 @@ export const ViewPatient = () => {
         <PatientActions id={patientId} hideEditBtn />
       </div>
       {isLoading ? loader : null}
-      {!isLoading && data ? <PatientForm patient={data} /> : null}
+      {!isLoading && data ? (
+        <PatientForm patient={data} onSuccess={() => navigate("/")} />
+      ) : null}
     </PageLayout>
   );
 };
