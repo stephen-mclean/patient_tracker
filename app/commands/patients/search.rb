@@ -11,9 +11,10 @@ class Patients::Search < Mutations::Command
   def execute
     patients = Patient.where('first_name LIKE ? OR last_name LIKE ?', "%#{inputs[:query]}%",
                              "%#{inputs[:query]}%")
+    total = patients.count
     limit = inputs[:per_page]
     offset = inputs[:page] * inputs[:per_page]
     patients = patients.limit(limit).offset(offset) if inputs[:page] && inputs[:per_page]
-    patients
+    { patients:, total:, page: inputs[:page] }
   end
 end

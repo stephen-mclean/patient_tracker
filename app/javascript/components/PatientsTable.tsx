@@ -4,24 +4,19 @@ import { usePatients } from "../hooks/usePatients";
 import { DEFAULT_PAGE_SIZE } from "../constants";
 
 export const PatientsTable = () => {
+  const [query, setQuery] = useState("");
   const [page, setPage] = useState(0);
-  const { isLoading, data } = usePatients(page);
+  const { isLoading, data } = usePatients(page, DEFAULT_PAGE_SIZE, query);
   const totalPages = data?.total
     ? Math.ceil(data.total / DEFAULT_PAGE_SIZE)
     : 0;
   const pages = Array.from(Array(totalPages));
 
-  if (isLoading) {
-    return (
-      <div className="flex justify-center">
-        <span className="loading loading-ball loading-md"></span>
-      </div>
-    );
-  }
-
-  if (!data || !data.patients.length) {
-    return <div>No patients to show.</div>;
-  }
+  const loader = (
+    <div className="flex justify-center">
+      <span className="loading loading-ball loading-md"></span>
+    </div>
+  );
 
   const pagination =
     pages && pages.length ? (
@@ -39,9 +34,9 @@ export const PatientsTable = () => {
       </div>
     ) : null;
 
-  return (
-    <>
-      <table className="table mb-2">
+  const table =
+    data && data.patients.length ? (
+      <table className="table">
         <thead>
           <tr>
             <th>First Name</th>
@@ -59,8 +54,22 @@ export const PatientsTable = () => {
           ))}
         </tbody>
       </table>
+    ) : (
+      <div>No patients to show.</div>
+    );
 
-      {pagination}
-    </>
+  return (
+    <div className="flex flex-col gap-2">
+      <input
+        type="text"
+        placeholder="Search patients"
+        className="input input-sm input-bordered w-full max-w-xs"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      {isLoading ? loader : null}
+      {!isLoading ? table : null}
+      {!isLoading ? pagination : null}
+    </div>
   );
 };
