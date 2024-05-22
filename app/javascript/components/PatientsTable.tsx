@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "classnames";
 import { usePatients } from "../hooks/usePatients";
 import { DEFAULT_PAGE_SIZE } from "../constants";
+import { DeletePatientButton } from "./DeletePatientButton";
 
 export const PatientsTable = () => {
   const [query, setQuery] = useState("");
@@ -43,6 +44,7 @@ export const PatientsTable = () => {
             <th>Date Of Birth</th>
             <th>Gender</th>
             <th>Email</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -54,6 +56,9 @@ export const PatientsTable = () => {
               <td>{new Date(patient.dob).toLocaleDateString()}</td>
               <td>{patient.gender}</td>
               <td>{patient.email}</td>
+              <td>
+                <DeletePatientButton id={patient.id} />
+              </td>
             </tr>
           ))}
         </tbody>
