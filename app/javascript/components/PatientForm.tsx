@@ -1,24 +1,24 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { PatientInputs } from "../types/patients";
-import { useCreatePatient } from "../hooks/useCreatePatient";
+import { Patient, PatientInputs } from "../types/patients";
+import { useCreateOrModifyPatient } from "../hooks/useCreatePatient";
 import classNames from "classnames";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type Props = {
-  onSuccess: () => void;
+  onSuccess?: () => void;
+  patient?: Patient;
 };
 
-export const NewPatientForm = ({}: Props) => {
-  const navigate = useNavigate();
-  const { mutateAsync, isPending, isError } = useCreatePatient(() => {
-    navigate("/");
-  });
+export const PatientForm = ({ onSuccess, patient }: Props) => {
+  const { mutateAsync, isPending, isError } = useCreateOrModifyPatient(() => {
+    onSuccess?.();
+  }, patient?.id);
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<PatientInputs>();
+  } = useForm<PatientInputs>({ defaultValues: patient });
 
   const onSubmit: SubmitHandler<PatientInputs> = async (data) => {
     mutateAsync(data);
@@ -166,7 +166,7 @@ export const NewPatientForm = ({}: Props) => {
           })}
         >
           {loader}
-          Create
+          {patient ? "Update" : "Create"}
         </button>
       </div>
     </form>

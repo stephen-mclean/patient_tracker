@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { Home } from "../pages/Home";
 import { NewPatient } from "../pages/NewPatient";
+import { ViewPatient } from "../pages/ViewPatient";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/new",
     element: <NewPatient />,
+  },
+  {
+    path: "/patients/:id",
+    element: <ViewPatient />,
   },
 ]);
 

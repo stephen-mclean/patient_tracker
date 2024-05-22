@@ -1,12 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PatientInputs } from "../types/patients";
 
-const createPatient = async (patient: PatientInputs) => {
+const createOrModifyPatient = async (patient: PatientInputs, id?: number) => {
   const payload = {
     patient: patient,
   };
-  const response = await fetch("/api/v1/patients", {
-    method: "POST",
+  const url = id ? `/api/v1/patients/${id}` : "/api/v1/patients";
+  const method = id ? "PUT" : "POST";
+  const response = await fetch(url, {
+    method,
     headers: {
       "Content-Type": "application/json",
     },
@@ -20,11 +22,11 @@ const createPatient = async (patient: PatientInputs) => {
   throw new Error("Failed to create patient");
 };
 
-export const useCreatePatient = (onSuccess = () => {}) => {
+export const useCreateOrModifyPatient = (onSuccess = () => {}, id?: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createPatient,
+    mutationFn: (patient: PatientInputs) => createOrModifyPatient(patient, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["patients"] });
       onSuccess();

@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { usePatients } from "../hooks/usePatients";
 import { DEFAULT_PAGE_SIZE } from "../constants";
 import { DeletePatientButton } from "./DeletePatientButton";
+import { PatientActions } from "./PatientActions";
 
 export const PatientsTable = () => {
   const [query, setQuery] = useState("");
@@ -57,7 +58,7 @@ export const PatientsTable = () => {
               <td>{patient.gender}</td>
               <td>{patient.email}</td>
               <td>
-                <DeletePatientButton id={patient.id} />
+                <PatientActions id={patient.id} />
               </td>
             </tr>
           ))}
