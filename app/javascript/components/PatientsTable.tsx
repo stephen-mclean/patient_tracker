@@ -39,17 +39,21 @@ export const PatientsTable = () => {
       <table className="table">
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Name</th>
             <th>Date Of Birth</th>
+            <th>Gender</th>
+            <th>Email</th>
           </tr>
         </thead>
         <tbody>
           {data.patients.map((patient) => (
             <tr key={patient.id}>
-              <td>{patient.first_name}</td>
-              <td>{patient.last_name}</td>
-              <td>{patient.dob}</td>
+              <td>
+                {patient.first_name} {patient.last_name}
+              </td>
+              <td>{new Date(patient.dob).toLocaleDateString()}</td>
+              <td>{patient.gender}</td>
+              <td>{patient.email}</td>
             </tr>
           ))}
         </tbody>
