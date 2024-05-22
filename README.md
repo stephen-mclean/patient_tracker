@@ -1,24 +1,25 @@
-# README
+# Installation
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Rails
 
-Things you may want to cover:
+`bundle install`
 
-* Ruby version
+### DB
 
-* System dependencies
+Ensure you create a postgres user `patient_tracker` with permission to create DB tables before running the setup
 
-* Configuration
+`rails db:setup`
 
-* Database creation
+## Javascript
 
-* Database initialization
+`npm install`
 
-* How to run the test suite
+# Running the project
 
-* Services (job queues, cache servers, search engines, etc.)
+## Rails
 
-* Deployment instructions
+`rails s`
 
-* ...
+## Javascript
+
+`npm run dev`
