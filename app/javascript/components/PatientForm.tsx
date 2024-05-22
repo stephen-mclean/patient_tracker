@@ -117,7 +117,7 @@ export const PatientForm = ({ onSuccess, patient }: Props) => {
             "input input-sm input-bordered w-full max-w-xs",
             { "input-error": errors.email }
           )}
-          {...register("email", { required: true })}
+          {...register("email", { required: true, pattern: /\S+@\S+\.\S+/ })}
         />
       </label>
 
