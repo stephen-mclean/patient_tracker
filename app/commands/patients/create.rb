@@ -8,8 +8,8 @@ class Patients::Create < Mutations::Command
   end
 
   optional do
-    string :notes
-    string :medications
+    string :notes, empty: true
+    string :medications, empty: true
   end
 
   def execute

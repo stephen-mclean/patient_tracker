@@ -9,6 +9,8 @@ export type Patient = {
   email: string;
 };
 
+export type PatientInputs = Omit<Patient, "id">;
+
 export const isPatient = (data: any): data is Patient => {
   return (
     typeof data.id === "number" &&
