@@ -28,7 +28,6 @@ export const ViewPatient = () => {
     <PageLayout>
       <div className="flex justify-between w-full mb-3">
         <h1 className="text-4xl">Patient Details</h1>
-        <PatientActions id={patientId} hideEditBtn />
       </div>
       {isLoading ? loader : null}
       {!isLoading && data ? (
