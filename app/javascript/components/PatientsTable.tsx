@@ -69,7 +69,7 @@ export const PatientsTable = () => {
     );
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 overflow-x-auto">
       <input
         type="text"
         placeholder="Search patients"
